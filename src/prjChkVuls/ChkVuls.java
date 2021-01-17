@@ -35,6 +35,7 @@ public class ChkVuls {
 	static String proxy_pw="";
 	static String proxy_url="";
 	static int proxy_port=8080;
+	static String config_file="ChkVuls.ini";	// 2020/1/17 追加
 
 	public static void main(String[] args) throws IOException {
 		
@@ -55,7 +56,24 @@ public class ChkVuls {
 			System.out.println("アプリ止める");	
 			System.exit(0);
 			}
+
+		// 2021/1/17 追記 ここから
+		// 初期設定ファイルの読込		
+		String inifile[] = readFile_Config();
 		
+		if ((inifile[0] != "") && (inifile[3] != "")) {		
+			if (inifile[3].chars().allMatch(Character::isDigit)) {
+				proxy_id=inifile[0];
+				proxy_pw=inifile[1];
+				proxy_url=inifile[2];
+				proxy_port=Integer.parseInt(inifile[3]);
+				System.out.println("proxy_id:" + proxy_id);	
+				System.out.println("proxy_pw:" + proxy_pw);	
+				System.out.println("proxy_url:" + proxy_url);	
+				System.out.println("proxy_port:" + proxy_port);	
+			}
+		}
+
 //		// アプリをここで止める。
 //		if (true) {System.exit(0);}
 		
@@ -266,6 +284,57 @@ public class ChkVuls {
         return conf_data;
     }
 
+    // 初期設定ファイル読込	// 2021/1/17 追加
+    private static String[] readFile_Config() {
+        // ファイルの情報を保存
+       String strLine;
+       String strTmp[] = new String[2];
+       String[] conf_data = new String[4];
+
+       // 初期化
+       for(int i = 0; i <= 3 ; i++) {
+    	   conf_data[i]="";
+       }
+
+        // 初期設定ファイルの読込
+       File file = new File(data_path, config_file);
+
+//       System.out.println("ファイル名:" + file.getAbsoluteFile());	
+
+       try {
+    	   // ファイルがある場合
+    	  if (file.exists()) {
+    		  // System.out.println("初期設定ファイルあります！");	
+
+    		  // BufferedReaderクラスのreadLineメソッドを使って1行ずつ読み込み表示する
+    		  FileReader fileReader = new FileReader(file);
+    		  BufferedReader bufferedReader = new BufferedReader(fileReader);
+    		  
+    		  while ((strLine = bufferedReader.readLine()) != null) {
+    			  // 読み込んだファイルの内容を分割(最大 5項目)
+    			  strTmp = strLine.split("=", 2);
+    			  
+    			  switch (strTmp[0]) {
+    				case "proxy_id":
+    					conf_data[0]=strTmp[1].trim();
+    				case "proxy_pw":
+    					conf_data[1]=strTmp[1].trim();
+    				case "proxy_url":
+    					conf_data[2]=strTmp[1].trim();
+    				case "proxy_port":
+    					conf_data[3]=strTmp[1].trim();
+    			  }  			  
+    		  }
+    		  // 最後にファイルを閉じてリソースを開放する
+    		  bufferedReader.close();
+    	  }
+
+       } catch (IOException e) {
+            e.printStackTrace();
+        }
+       return conf_data;
+    }
+    
     // Apache HTTP Server
   public static void ChkAdv001(String[] conf_data) {
       // 宣言
