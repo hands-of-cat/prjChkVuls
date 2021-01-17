@@ -1,0 +1,4 @@
+# md5sum
+500a31be6af327629d1cdb0e04eed023  chkVuls.jar
+# sha256sum
+32624262f60d4e4d6ba9b82cc2d96b3fdfa65f63cf00e5244dbc65d045dc5861  chkVuls.jar
