@@ -20,18 +20,18 @@
 # lastcheckdata.csv 
  1. ID (特に使っていない)
  2. 製品名等 (メッセージダイアログ出すときにも使用しています）
- 3. 実行時に種痘した値
+ 3. 実行時に取得した値
  4. 前回実行時に取得した値
  5. 行を更新した日
 
 # chkVuls.jar ファイル
- jar ファイルに gson-2.8.6.jar, jsoup-1.13.1.jar が含まれていると思います。
+ jar ファイルに gson-2.8.6.jar, jsoup-1.13.1.jar を含めてエクスポートしています。
  java -jar chkVuls.jar
 
 # Proxy 経由の接続について
  chkVuls_Proxy.jar に分けました。
  差異がない場合は、メッセージダイアログが出ないようにコメントアウトしました。
- jar ファイルに gson-2.8.6.jar, jsoup-1.13.1.jar が含まれていると思います。
+ jar ファイルに gson-2.8.6.jar, jsoup-1.13.1.jar を含めてエクスポートしています。
  java -jar chkVuls.jar
  ChkVuls.ini に、必要な情報を書き込んで試してください。
 
