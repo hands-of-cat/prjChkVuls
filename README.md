@@ -29,7 +29,10 @@
  java -jar chkVuls.jar
 
 # Proxy 経由の接続について
- 動作確認していません。
+ chkVuls_Proxy.jar に分けました。
+ 差異がない場合は、メッセージダイアログが出ないようにコメントアウトしました。
+ jar ファイルに gson-2.8.6.jar, jsoup-1.13.1.jar が含まれていると思います。
+ java -jar chkVuls.jar
  ChkVuls.ini に、必要な情報を書き込んで試してください。
 
 # ファイルの管理について
