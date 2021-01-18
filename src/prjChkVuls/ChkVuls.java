@@ -31,11 +31,6 @@ public class ChkVuls {
 	static int max_col=5;
 	static String data_file="lastcheckdata.csv";
 	static String data_path=".";
-	static String proxy_id="";
-	static String proxy_pw="";
-	static String proxy_url="";
-	static int proxy_port=8080;
-	static String config_file="ChkVuls.ini";	// 2020/1/17 追加
 
 	public static void main(String[] args) throws IOException {
 		
@@ -57,22 +52,6 @@ public class ChkVuls {
 			System.exit(0);
 			}
 
-		// 2021/1/17 追記 ここから
-		// 初期設定ファイルの読込		
-		String inifile[] = readFile_Config();
-		
-		if ((inifile[0] != "") && (inifile[3] != "")) {		
-			if (inifile[3].chars().allMatch(Character::isDigit)) {
-				proxy_id=inifile[0];
-				proxy_pw=inifile[1];
-				proxy_url=inifile[2];
-				proxy_port=Integer.parseInt(inifile[3]);
-				System.out.println("proxy_id:" + proxy_id);	
-				System.out.println("proxy_pw:" + proxy_pw);	
-				System.out.println("proxy_url:" + proxy_url);	
-				System.out.println("proxy_port:" + proxy_port);	
-			}
-		}
 
 //		// アプリをここで止める。
 //		if (true) {System.exit(0);}
@@ -105,18 +84,6 @@ public class ChkVuls {
 
        // ファイルの読込
       conf_data = readFile();
-
-      // Java 8 より 「認証が必要なプロキシ経由でのHTTPSアクセスを禁止」がデフォルト設定で Basic 認証が利用できない。設定変更する。
-      System.setProperty("jdk.http.auth.tunneling.disabledSchemes", "");
-
-      // プロキシのIDとパスワードをAuthenticator経由で渡す予定
-      // うまく行くかは不明
-      Authenticator.setDefault(new Authenticator() {
-    	  @Override
-         protected PasswordAuthentication getPasswordAuthentication() {
-    		  return new PasswordAuthentication(proxy_id, proxy_pw.toCharArray());
-          }
-      	});
       
        // 個別に情報を確認
        ChkAdv001(conf_data_now[0]);
@@ -284,57 +251,6 @@ public class ChkVuls {
         return conf_data;
     }
 
-    // 初期設定ファイル読込	// 2021/1/17 追加
-    private static String[] readFile_Config() {
-        // ファイルの情報を保存
-       String strLine;
-       String strTmp[] = new String[2];
-       String[] conf_data = new String[4];
-
-       // 初期化
-       for(int i = 0; i <= 3 ; i++) {
-    	   conf_data[i]="";
-       }
-
-        // 初期設定ファイルの読込
-       File file = new File(data_path, config_file);
-
-//       System.out.println("ファイル名:" + file.getAbsoluteFile());	
-
-       try {
-    	   // ファイルがある場合
-    	  if (file.exists()) {
-    		  // System.out.println("初期設定ファイルあります！");	
-
-    		  // BufferedReaderクラスのreadLineメソッドを使って1行ずつ読み込み表示する
-    		  FileReader fileReader = new FileReader(file);
-    		  BufferedReader bufferedReader = new BufferedReader(fileReader);
-    		  
-    		  while ((strLine = bufferedReader.readLine()) != null) {
-    			  // 読み込んだファイルの内容を分割(最大 5項目)
-    			  strTmp = strLine.split("=", 2);
-    			  
-    			  switch (strTmp[0]) {
-    				case "proxy_id":
-    					conf_data[0]=strTmp[1].trim();
-    				case "proxy_pw":
-    					conf_data[1]=strTmp[1].trim();
-    				case "proxy_url":
-    					conf_data[2]=strTmp[1].trim();
-    				case "proxy_port":
-    					conf_data[3]=strTmp[1].trim();
-    			  }  			  
-    		  }
-    		  // 最後にファイルを閉じてリソースを開放する
-    		  bufferedReader.close();
-    	  }
-
-       } catch (IOException e) {
-            e.printStackTrace();
-        }
-       return conf_data;
-    }
-    
     // Apache HTTP Server
   public static void ChkAdv001(String[] conf_data) {
       // 宣言
@@ -345,11 +261,7 @@ public class ChkVuls {
       conf_data[1]="Apache HTTP";
 
       try{
-    	  if (proxy_url.equals("")){
     		  document = Jsoup.connect("https://httpd.apache.org/security/vulnerabilities_24.html").get();
-    	  	} else {
-      		  document = Jsoup.connect("https://httpd.apache.org/security/vulnerabilities_24.html").proxy(proxy_url,proxy_port).get();
-    	  	}
           Elements elements = document.select("h1[id*=2.4]");
           conf_data[2]=elements.get(0).id();
       } catch (IOException e) {
@@ -367,11 +279,7 @@ public class ChkVuls {
       conf_data[1]="Drupal";
 
       try{
-    	  if (proxy_url.equals("")){
     		  document = Jsoup.connect("https://www.drupal.org/security").get();
-    	  	} else {
-      		  document = Jsoup.connect("https://www.drupal.org/security").proxy(proxy_url,proxy_port).get();
-    	  	}
     	  
           Elements elements = document.select("a[href*=/sa-core]");
           conf_data[2]=elements.get(0).attr("href");
@@ -390,11 +298,7 @@ public class ChkVuls {
       conf_data[1]="WordPress";
 
       try{
-    	  if (proxy_url.equals("")){
     		  document = Jsoup.connect("https://wordpress.org/news/category/security/").get();
-    	  	} else {
-      		  document = Jsoup.connect("https://wordpress.org/news/category/security/").proxy(proxy_url,proxy_port).get();
-    	  	}
           Elements elements = document.select("td a[href*=https://wordpress.org/news/]");
           conf_data[2]=elements.get(0).text();
 
@@ -413,11 +317,7 @@ public class ChkVuls {
       conf_data[1]="ISC BIND";
 
       try{
-    	  if (proxy_url.equals("")){
     		  document = Jsoup.connect("https://kb.isc.org/docs/aa-00913").get();
-    	  	} else {
-      		  document = Jsoup.connect("https://kb.isc.org/docs/aa-00913").proxy(proxy_url,proxy_port).get();
-    	  	}
           Elements elements = document.select("a[href*=http://cve.mitre.org/cgi-bin/cvename.cgi]");
           conf_data[2]=elements.get(0).text();
       } catch (IOException e) {
@@ -435,11 +335,7 @@ public class ChkVuls {
       conf_data[1]="Tomcat 8";
 
       try{
-    	  if (proxy_url.equals("")){
     		  document = Jsoup.connect("https://tomcat.apache.org/security-8.html").get();
-    	  	} else {
-      		  document = Jsoup.connect("https://tomcat.apache.org/security-8.html").proxy(proxy_url,proxy_port).get();
-    	  	}
           Elements elements = document.select("h3[id*=Fixed_in_Apache_Tomcat_8]");
           conf_data[2]=elements.get(0).text();
       } catch (IOException e) {
@@ -457,11 +353,7 @@ public class ChkVuls {
       conf_data[1]="Tomcat 9";
 
       try{
-    	  if (proxy_url.equals("")){
     		  document = Jsoup.connect("https://tomcat.apache.org/security-9.html").get();
-    	  	} else {
-      		  document = Jsoup.connect("https://tomcat.apache.org/security-9.html").proxy(proxy_url,proxy_port).get();
-    	  	}
           Elements elements = document.select("h3[id*=Fixed_in_Apache_Tomcat_9]");
           conf_data[2]=elements.get(0).text();
       } catch (IOException e) {
@@ -479,11 +371,7 @@ public class ChkVuls {
       conf_data[1]="Oracle Security Alert";
 
       try{
-    	  if (proxy_url.equals("")){
     		  document = Jsoup.connect("https://www.oracle.com/security-alerts/").get();
-    	  	} else {
-      		  document = Jsoup.connect("https://www.oracle.com/security-alerts/").proxy(proxy_url,proxy_port).get();
-    	  	}
           Elements elements = document.select("td a[href*=/security-alerts/alert]");
           conf_data[2]=elements.get(0).text();
       } catch (IOException e) {
@@ -501,11 +389,7 @@ public class ChkVuls {
       conf_data[1]="PHP7";
 
       try{
-    	  if (proxy_url.equals("")){
     		  document = Jsoup.connect("https://www.php.net/ChangeLog-7.php").get();
-    	  	} else {
-      		  document = Jsoup.connect("https://www.php.net/ChangeLog-7.php").proxy(proxy_url,proxy_port).get();
-    	  	}
           Elements elements = document.select("section[class*=version]");
           conf_data[2]=elements.get(0).id();
       } catch (IOException e) {
@@ -523,11 +407,7 @@ public class ChkVuls {
       conf_data[1]="PostgreSQL";
 
       try{
-    	  if (proxy_url.equals("")){
     		  document = Jsoup.connect("https://www.postgresql.org/support/security/").get();
-    	  	} else {
-      		  document = Jsoup.connect("https://www.postgresql.org/support/security/").proxy(proxy_url,proxy_port).get();
-    	  	}
           Elements elements = document.select("a[href*=https://access.redhat.com/security/cve/]");
           conf_data[2]=elements.get(0).text();
       } catch (IOException e) {
@@ -545,11 +425,7 @@ public class ChkVuls {
       conf_data[1]="Adobe ColdFusion";
 
       try{
-    	  if (proxy_url.equals("")){
     		  document = Jsoup.connect("https://helpx.adobe.com/security.html").get();
-    	  	} else {
-      		  document = Jsoup.connect("https://helpx.adobe.com/security.html").proxy(proxy_url,proxy_port).get();
-    	  	}
           Elements elements = document.select("a[href*=https://helpx.adobe.com/security/products/coldfusion/]");
           conf_data[2]=elements.get(0).select("b").get(0).text();
       } catch (IOException e) {
@@ -571,11 +447,7 @@ public class ChkVuls {
       conf_data[2]="初期値";
 
       try{
-    	  if (proxy_url.equals("")){
     		  json = Jsoup.connect("https://tools.cisco.com/security/center/publicationService.x?criteria=exact&limit=20&offset=0&publicationTypeIDs=1,3&securityImpactRatings=critical,high&sort=-day_sir").ignoreContentType(true).execute().body();
-    	  	} else {
-      		  json = Jsoup.connect("https://tools.cisco.com/security/center/publicationService.x?criteria=exact&limit=20&offset=0&publicationTypeIDs=1,3&securityImpactRatings=critical,high&sort=-day_sir").proxy(proxy_url,proxy_port).ignoreContentType(true).execute().body();
-    	  	}
 
           // JSON文字列をJavaオブジェクトに変換する
           cisco_json[] jsonArray = gson.fromJson(json, cisco_json[].class);
@@ -622,11 +494,7 @@ public class ChkVuls {
       conf_data[1]="VMware";
 
       try{
-    	  if (proxy_url.equals("")){
     		  document = Jsoup.connect("https://www.vmware.com/jp/security/advisories.html").get();
-    	  	} else {
-      		  document = Jsoup.connect("https://www.vmware.com/jp/security/advisories.html").proxy(proxy_url,proxy_port).get();
-    	  	}
           Elements elements = document.select("a[aria-label*=VMSA]");
           conf_data[2]=elements.get(0).text();
       } catch (IOException e) {
@@ -644,11 +512,7 @@ public class ChkVuls {
       conf_data[1]="Hitachi";
 
       try{
-    	  if (proxy_url.equals("")){
     		  document = Jsoup.connect("https://www.hitachi.co.jp/hirt/security/index.html").get();
-    	  	} else {
-      		  document = Jsoup.connect("https://www.hitachi.co.jp/hirt/security/index.html").proxy(proxy_url,proxy_port).get();
-    	  	}
           Elements elements = document.select("dt");
           conf_data[2]=elements.get(0).text();
       } catch (IOException e) {
@@ -666,11 +530,7 @@ public class ChkVuls {
       conf_data[1]="OpenSSL";
 
       try{
-    	  if (proxy_url.equals("")){
     		  document = Jsoup.connect("https://www.openssl.org/news/vulnerabilities.html").get();
-    	  	} else {
-      		  document = Jsoup.connect("https://www.openssl.org/news/vulnerabilities.html").proxy(proxy_url,proxy_port).get();
-    	  	}
           Elements elements = document.select("a[href*=https://cve.mitre.org/cgi-bin/cvename.cgi]");
           conf_data[2]=elements.get(0).text();
       } catch (IOException e) {
@@ -688,11 +548,7 @@ public class ChkVuls {
       conf_data[1]="unbound";
 
       try{
-    	  if (proxy_url.equals("")){
     		  document = Jsoup.connect("https://www.nlnetlabs.nl/projects/unbound/security-advisories/").get();
-    	  	} else {
-      		  document = Jsoup.connect("https://www.nlnetlabs.nl/projects/unbound/security-advisories/").proxy(proxy_url,proxy_port).get();
-    	  	}
           Elements elements = document.select("tbody tr td[class=field-body]");
           conf_data[2]=elements.get(0).text();
       } catch (IOException e) {
@@ -710,11 +566,7 @@ public class ChkVuls {
       conf_data[1]="Apache Struts";
 
       try{
-    	  if (proxy_url.equals("")){
     		  document = Jsoup.connect("https://cwiki.apache.org/confluence/display/WW/Security+Bulletins").get();
-    	  	} else {
-      		  document = Jsoup.connect("https://cwiki.apache.org/confluence/display/WW/Security+Bulletins").proxy(proxy_url,proxy_port).get();
-    	  	}
           Elements elements = document.select("a[href*=/confluence/display/WW/]");
           conf_data[2]=elements.last().text();
       } catch (IOException e) {
