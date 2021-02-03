@@ -35,5 +35,8 @@
  java -jar chkVuls.jar
  ChkVuls.ini に、必要な情報を書き込んで試してください。
 
-# ファイルの管理について
- git 使いこなせてないので、ファイル単位でアップロードしています。
+# Cisco の Security Advisory について
+ json を分解して New をもつ identifier を比較してもうまく行かなかったので、
+ 取得できた json 内の日付を比較して最新バージョンの有無を比較しています。
+ 20個ぐらい、json に含まれているので、表示されている Security Advisory すべてが Update だと、
+ 上手に検出できません。
