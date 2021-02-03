@@ -12,9 +12,12 @@ import java.net.Authenticator;
 import java.net.MalformedURLException;
 import java.net.PasswordAuthentication;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import com.google.gson.Gson;			// json 解析用
 import java.util.Date;					// 実行日付用
+import java.util.Locale;
+
 import javax.swing.*;					// メッセージ表示用
 
 /**
@@ -53,7 +56,7 @@ public class ChkVuls {
 			}
 
 
-//		// アプリをここで止める。
+		// アプリをここで止める。
 //		if (true) {System.exit(0);}
 		
 		// 脆弱性有無
@@ -439,9 +442,16 @@ public class ChkVuls {
   }
 
   // Cisco
-  public static void ChkAdv011( String[] conf_data) {
+  public static void ChkAdv011(String[] conf_data) {
       // 宣言
       String json;
+
+      String strTmp;
+      SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'.'SZ");
+      Date date_new;
+      Date date_tmp;
+      
+      SimpleDateFormat YYYYMMDD = new SimpleDateFormat("yyyyMMdd");
       
       // Gson の宣言
       Gson gson = new Gson();
@@ -457,15 +467,24 @@ public class ChkVuls {
           // JSON文字列をJavaオブジェクトに変換する
           cisco_json[] jsonArray = gson.fromJson(json, cisco_json[].class);
 
-          for(int i=0; i< jsonArray.length; i++) {
-              if (jsonArray[i].status.equals("New")) {
-                  conf_data[2]=jsonArray[i].identifier;
-                  break;
-              }
+          // 初期値を設定
+          strTmp = jsonArray[0].firstPublished;
+          date_new = dateFormat.parse(strTmp);
+          
+          for(int i=1; i< jsonArray.length; i++) {      	  
+        	  date_tmp = dateFormat.parse(jsonArray[i].firstPublished);
+        	  
+             if (date_new.after(date_tmp)){
+            	 date_new = date_tmp;
+             }
+           conf_data[2]=YYYYMMDD.format(date_new);
           }
       } catch (IOException e) {
           conf_data[5]="情報取得失敗";	// 2021/1/19 修正
-      }
+      } catch (ParseException e) {
+          conf_data[5]="情報取得失敗";
+		e.printStackTrace();
+	}
   }
 
   // Cisco の Json 定義
@@ -479,7 +498,7 @@ public class ChkVuls {
       public String id = "";					// id はあまり意味がなさそう
       public String name = "";					// Cisco Security Advisory で固定
       public String url = "";					// 詳細情報が乗っている
-      public String severity = "";			// critical or high で絞っている
+      public String severity = "";		       // critical or high で絞っている
       public String status = "";				// New が対象
       public String cwe = "";					// CWE-XXX,....
       public String cve = "";					// CVE-XXXX,....

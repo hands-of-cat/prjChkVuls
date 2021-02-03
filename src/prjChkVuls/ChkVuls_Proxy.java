@@ -8,6 +8,7 @@ import java.net.Authenticator;
 import java.net.MalformedURLException;
 import java.net.PasswordAuthentication;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import com.google.gson.Gson;			// json 解析用
 
@@ -634,6 +635,13 @@ public class ChkVuls_Proxy {
 
 		  // 宣言
 	      String json;
+
+	      String strTmp;
+	      SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'.'SZ");
+	      Date date_new;
+	      Date date_tmp;
+
+	      SimpleDateFormat YYYYMMDD = new SimpleDateFormat("yyyyMMdd");
 	      
 	      // Gson の宣言
 	      Gson gson = new Gson();
@@ -653,14 +661,24 @@ public class ChkVuls_Proxy {
 	          // JSON文字列をJavaオブジェクトに変換する
 	          cisco_json[] jsonArray = gson.fromJson(json, cisco_json[].class);
 
-	          for(int i=0; i< jsonArray.length; i++) {
-	              if (jsonArray[i].status.equals("New")) {
-	                  conf_data[2]=jsonArray[i].identifier;
-	                  break;
-	              }
+	          // 初期値を設定
+	          strTmp = jsonArray[0].firstPublished;
+	          date_new = dateFormat.parse(strTmp);
+	          
+	          for(int i=1; i< jsonArray.length; i++) {      	  
+	        	  date_tmp = dateFormat.parse(jsonArray[i].firstPublished);
+	        	  
+	             if (date_new.after(date_tmp)){
+	            	 date_new = date_tmp;
+	             }
+	           conf_data[2]=YYYYMMDD.format(date_new);
+	           
 	          }
 	      } catch (IOException e) {
 	          conf_data[5]="情報取得失敗";	// 2021/1/19 修正
+	      } catch (ParseException e) {
+	          conf_data[5]="情報取得失敗";
+			e.printStackTrace();
 	      }
 	  }
 
