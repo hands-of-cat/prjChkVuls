@@ -17,8 +17,7 @@
 未 https://www.postgresql.org/support/security/<BR>
 未 https://helpx.adobe.com/security.html<BR>
 　※ Adobe CodeFusion のみチェック <BR>
-☓ https://tools.cisco.com/security/center/publicationListing.x<BR>
-  ※ 調整中<BR>
+◎ https://tools.cisco.com/security/center/publicationListing.x<BR>
 ◎ https://www.hitachi.co.jp/hirt/security/index.html<BR>
 未 https://www.openssl.org/news/vulnerabilities.html<BR>
 未 https://www.nlnetlabs.nl/projects/unbound/security-advisories/<BR>
@@ -60,4 +59,4 @@
  json を分解して New をもつ identifier を比較してもうまく行かなかったので、
  取得できた json 内の日付を比較して最新バージョンの有無を比較しています。
  20個ぐらい、json に含まれているので、表示されている Security Advisory すべてが Update だと、
- 上手に検出できません。
+ 上手に検出できません。※2021/2/4 に一部修正しました。
