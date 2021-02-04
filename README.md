@@ -3,6 +3,23 @@
  公開済みの Security Advisory が更新された場合には、検知できないことがあります。
  Jsoup を利用して、特定の箇所を比較しているため、更新を検知できないことがあるかもしれません。
 
+# チェックしている Security Advisory は以下になります。
+ https://httpd.apache.org/security/vulnerabilities_24.html<BR>
+ https://www.drupal.org/security<BR>
+ https://wordpress.org/news/category/security/<BR>
+ https://kb.isc.org/docs/aa-00913<BR>
+ https://tomcat.apache.org/security-8.html<BR>
+ https://tomcat.apache.org/security-9.html<BR>
+ https://www.oracle.com/security-alerts/<BR>
+ https://www.php.net/ChangeLog-7.php<BR>
+ https://www.postgresql.org/support/security/<BR>
+ https://helpx.adobe.com/security.html<BR>
+ https://tools.cisco.com/security/center/publicationService.x?<BR>
+ https://www.hitachi.co.jp/hirt/security/index.html<BR>
+ https://www.openssl.org/news/vulnerabilities.html<BR>
+ https://www.nlnetlabs.nl/projects/unbound/security-advisories/<BR>
+ https://cwiki.apache.org/confluence/display/WW/Security+Bulletins<BR>
+
 # gson-2.8.6.jar
  json を処理する際に利用しています。
 
