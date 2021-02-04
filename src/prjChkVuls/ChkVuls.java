@@ -474,7 +474,7 @@ public class ChkVuls {
           for(int i=1; i< jsonArray.length; i++) {      	  
         	  date_tmp = dateFormat.parse(jsonArray[i].firstPublished);
         	  
-             if (date_new.after(date_tmp)){
+             if (date_new.before(date_tmp)){
             	 date_new = date_tmp;
              }
            conf_data[2]=YYYYMMDD.format(date_new);
