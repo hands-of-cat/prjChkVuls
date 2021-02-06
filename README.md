@@ -9,8 +9,8 @@
 ◎ https://www.drupal.org/security<BR>
 未 https://wordpress.org/news/category/security/<BR>
 未 https://kb.isc.org/docs/aa-00913<BR>
-未 https://tomcat.apache.org/security-8.html<BR>
-未 https://tomcat.apache.org/security-9.html<BR>
+☓ https://tomcat.apache.org/security-8.html<BR>
+☓ https://tomcat.apache.org/security-9.html<BR>
 未 https://www.oracle.com/security-alerts/<BR>
   ※ 定例外のみチェックしています。 <BR>
 ◎ https://www.php.net/ChangeLog-7.php<BR>
