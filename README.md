@@ -16,7 +16,7 @@
 ◎ https://www.php.net/ChangeLog-7.php<BR>
 未 https://www.postgresql.org/support/security/<BR>
 未 https://helpx.adobe.com/security.html<BR>
-　※ Adobe CodeFusion のみチェック <BR>
+　※ Adobe ColdFusion のみチェック <BR>
 ◎ https://tools.cisco.com/security/center/publicationListing.x<BR>
 ◎ https://www.hitachi.co.jp/hirt/security/index.html<BR>
 未 https://www.openssl.org/news/vulnerabilities.html<BR>
