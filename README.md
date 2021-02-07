@@ -9,8 +9,8 @@
 ◎ https://www.drupal.org/security<BR>
 未 https://wordpress.org/news/category/security/<BR>
 未 https://kb.isc.org/docs/aa-00913<BR>
-☓ https://tomcat.apache.org/security-8.html<BR>
-☓ https://tomcat.apache.org/security-9.html<BR>
+未 https://tomcat.apache.org/download-80.cgi<BR>
+未 https://tomcat.apache.org/download-90.cgi<BR>
 未 https://www.oracle.com/security-alerts/<BR>
   ※ 定例外のみチェックしています。 <BR>
 ◎ https://www.php.net/ChangeLog-7.php<BR>
@@ -27,7 +27,8 @@
  json を処理する際に利用しています。
 
 # jsoup-1.13.1.jar
- html を処理する際に利用しています。
+ html を処理する際に利用しています。<BR>
+ https://jsoup.org/apidocs/org/jsoup/select/Selector.html<BR>
  
 # 使い方
  初回実行時は、各ベンダのセキュリティアドバイザリを確認し、lastcheckdata.csv に初期状態を保存します。
