@@ -343,8 +343,11 @@ public class ChkVuls {
       conf_data[1]="Tomcat 8";
 
       try{
-    		  document = Jsoup.connect("https://tomcat.apache.org/security-8.html").get();
-          Elements elements = document.select("h3[id*=Fixed_in_Apache_Tomcat_8]");
+//    		  document = Jsoup.connect("https://tomcat.apache.org/security-8.html").get();
+//          Elements elements = document.select("h3[id*=Fixed_in_Apache_Tomcat_8]");
+		  document = Jsoup.connect("https://tomcat.apache.org/download-80.cgi").get();
+		  Elements elements = document.select("h3[id^=8]");
+
           conf_data[2]=elements.get(0).text();
       } catch (IOException e) {
           conf_data[5]="情報取得失敗";	// 2021/1/19 修正
@@ -361,8 +364,11 @@ public class ChkVuls {
       conf_data[1]="Tomcat 9";
 
       try{
-    		  document = Jsoup.connect("https://tomcat.apache.org/security-9.html").get();
-          Elements elements = document.select("h3[id*=Fixed_in_Apache_Tomcat_9]");
+//    		  document = Jsoup.connect("https://tomcat.apache.org/security-9.html").get();
+//          Elements elements = document.select("h3[id*=Fixed_in_Apache_Tomcat_9]");
+		  document = Jsoup.connect("https://tomcat.apache.org/download-90.cgi").get();
+		  Elements elements = document.select("h3[id^=9]");
+
           conf_data[2]=elements.get(0).text();
       } catch (IOException e) {
           conf_data[5]="情報取得失敗";	// 2021/1/19 修正
