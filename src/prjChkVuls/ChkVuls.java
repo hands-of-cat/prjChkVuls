@@ -30,7 +30,7 @@ public class ChkVuls {
 	 */
 
 // チェック内容保存のための配列
-	static int max_row=16;
+	static int max_row=17;						// 2021/2/9 ★追加(修正) 
 	static int max_col=6;						// 2021/1/19 修正
 	static String data_file="lastcheckdata.csv";
 	static String data_path=".";
@@ -111,6 +111,7 @@ public class ChkVuls {
 		System.out.println("15 個チェック完了");	
 
 		ChkAdv016(conf_data_now[15]);
+		ChkAdv017(conf_data_now[16]);		// 2021/2/9 ★追加(修正)
 		System.out.println("全チェック完了");	
 
        for(int i=0; i< max_row; i++) {
@@ -603,4 +604,27 @@ public class ChkVuls {
           conf_data[5]="情報取得失敗";	// 2021/1/19 修正
       }
   }
+
+  // PaloAlto 2021/2/9 ★追加
+  public static void ChkAdv017( String[] conf_data) {
+      // 宣言
+      Document document;
+
+      // PaloAlto　個別部分
+      conf_data[0]="17";
+      conf_data[1]="PaloAlto";
+
+      try{
+    		  document = Jsoup.connect("https://security.paloaltonetworks.com/?severity=CRITICAL&severity=HIGH&sort=-date").get();
+          Elements elements = document.select("table tr");
+          Elements cvssTmps = elements.get(1).select("a[href]");
+		 	String lastdata[] = cvssTmps.text().split(" ",0);
+          conf_data[2]=lastdata[0];
+      } catch (IOException e) {
+          conf_data[5]="情報取得失敗";
+      }
+  }
+  // 2021/2/9 ★追加
+
+
 }
