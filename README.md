@@ -1,7 +1,8 @@
 # はじめに
- ベンダが公開している Security Advisory 等の脆弱性情報について、新規公開を確認するためのプログラムです。
- 公開済みの Security Advisory が更新された場合には、検知できないことがあります。
- Jsoup を利用して、特定の箇所を比較しているため、更新を検知できないことがあるかもしれません。
+ ベンダが公開している Security Advisory 等の脆弱性情報について、新規公開を確認するためのプログラムです。<BR>
+ 公開済みの Security Advisory が更新された場合には、検知できないことがあります。<BR>
+ Jsoup を利用して、特定の箇所を比較しているため、更新を検知できないことがあるかもしれません。<BR>
+ 海外の製品をメインとしているので、１日１回実行すれば確認は十分です。<BR>
 
 # チェックしている Security Advisory は以下になります。
 未：実績なし、◎：実績あり、☓：バグがありチェックできていない <BR>
@@ -22,6 +23,7 @@
 未 https://www.openssl.org/news/vulnerabilities.html<BR>
 未 https://www.nlnetlabs.nl/projects/unbound/security-advisories/<BR>
 ◎ https://cwiki.apache.org/confluence/display/WW/Security+Bulletins<BR>
+未 https://security.paloaltonetworks.com/?severity=CRITICAL&severity=HIGH&sort=-date [2021/2/9 追加]<BR>
 
 # gson-2.8.6.jar
  json を処理する際に利用しています。
@@ -51,11 +53,12 @@
  java -jar chkVuls.jar
 
 # Proxy 経由の接続について
- chkVuls_Proxy.jar に分けました。
- 差異がない場合は、メッセージダイアログが出ないようにコメントアウトしました。
- jar ファイルに gson-2.8.6.jar, jsoup-1.13.1.jar を含めてエクスポートしています。
- java -jar chkVuls.jar
- ChkVuls.ini に、必要な情報を書き込んで試してください。
+ chkVuls_Proxy.jar に分けました。（テストは別環境でやるので、アップロード後すぐに動くかは運です。）<BR>
+ 差異がない場合は、メッセージダイアログが出ないようにしました。<BR>
+ 差異があるとダイアログが出るので、バッチ処理には向きません。<BR>
+ jar ファイルに gson-2.8.6.jar, jsoup-1.13.1.jar を含めてエクスポートしています。<BR>
+ java -jar chkVuls.jar<BR>
+ ChkVuls.ini に、必要な情報を書き込んで試してください。<BR>
 
 # Cisco の Security Advisory について
  json を分解して New をもつ identifier を比較してもうまく行かなかったので、
