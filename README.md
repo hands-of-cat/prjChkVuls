@@ -10,8 +10,8 @@
 ◎ https://www.drupal.org/security<BR>
 未 https://wordpress.org/news/category/security/<BR>
 未 https://kb.isc.org/docs/aa-00913<BR>
-未 https://tomcat.apache.org/download-80.cgi<BR>
-未 https://tomcat.apache.org/download-90.cgi<BR>
+◎ https://tomcat.apache.org/download-80.cgi<BR>
+◎ https://tomcat.apache.org/download-90.cgi<BR>
 未 https://www.oracle.com/security-alerts/<BR>
   ※ 定例外のみチェックしています。 <BR>
 ◎ https://www.php.net/ChangeLog-7.php<BR>
@@ -19,6 +19,7 @@
 未 https://helpx.adobe.com/security.html<BR>
 　※ Adobe ColdFusion のみチェック <BR>
 ◎ https://tools.cisco.com/security/center/publicationListing.x<BR>
+◎ https://www.vmware.com/jp/security/advisories.html<BR>
 ◎ https://www.hitachi.co.jp/hirt/security/index.html<BR>
 未 https://www.openssl.org/news/vulnerabilities.html<BR>
 未 https://www.nlnetlabs.nl/projects/unbound/security-advisories/<BR>
