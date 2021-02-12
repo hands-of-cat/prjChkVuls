@@ -13,9 +13,10 @@
 ◎ https://tomcat.apache.org/download-80.cgi<BR>
 ◎ https://tomcat.apache.org/download-90.cgi<BR>
 未 https://www.oracle.com/security-alerts/<BR>
-  ※ 定例外のみチェックしています。 <BR>
+　※ 定例外のみチェックしています。 <BR>
 ◎ https://www.php.net/ChangeLog-7.php<BR>
 未 https://www.postgresql.org/support/security/<BR>
+　※ CVSS >= 7 のみチェックしています。 [2021/2/12 更新]
 未 https://helpx.adobe.com/security.html<BR>
 　※ Adobe ColdFusion のみチェック <BR>
 ◎ https://tools.cisco.com/security/center/publicationListing.x<BR>
