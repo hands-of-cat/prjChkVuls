@@ -2,6 +2,7 @@ package prjChkVuls;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import java.io.*;							// Java ファイル読み書き用
 import java.net.Authenticator;
@@ -270,6 +271,15 @@ public class ChkVuls_Proxy {
 	        return conf_data;
 	    }
 
+		public static boolean isDouble(String num) {
+		    try {
+		        Double.parseDouble(num);
+		        return true;
+	       } catch (NumberFormatException e) {
+		        return false;
+		    }
+		}
+		
 	    // 初期設定ファイル読込	// 2021/1/17 追加
 	    private static String[] readFile_Config() {
 	        // ファイルの情報を保存
@@ -575,6 +585,10 @@ public class ChkVuls_Proxy {
 	      // 宣言
 	      Document document;
 
+	      double cvssvalue;
+	      Elements cvssTmps;
+	      Elements cveTmps;
+	      
 	      // PostgreSQL 個別部分
 	      conf_data[0]="09";
 	      conf_data[1]="PostgreSQL";
@@ -593,8 +607,23 @@ public class ChkVuls_Proxy {
 	    	  	} else {
 	      		  document = Jsoup.connect("https://www.postgresql.org/support/security/").proxy(proxy_url,proxy_port).get();
 	    	  	}
-	          Elements elements = document.select("a[href*=https://access.redhat.com/security/cve/]");
-	          conf_data[2]=elements.get(0).text();
+      
+	    	  	Elements elements = document.select("table[class=table table-striped] tbody tr");
+				for(Element elmTmp: elements) {
+					cveTmps = elmTmp.select("a[href*=https://access.redhat.com/security/cve/]");
+					cvssTmps = elmTmp.select("a[href*=https://nvd.nist.gov/vuln-metrics/cvss/v3-calculator]");
+
+					if (isDouble(cvssTmps.text())) {
+						cvssvalue = Double.parseDouble(cvssTmps.text());
+						if (cvssvalue >= 7 ) {
+							conf_data[2]=cveTmps.text();
+		  					break;
+						}
+					}
+		        }
+	      
+	      
+	      
 	      } catch (IOException e) {
 	          conf_data[5]="情報取得失敗";	// 2021/1/19 修正
 	      }

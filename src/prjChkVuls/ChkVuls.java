@@ -5,6 +5,7 @@ package prjChkVuls;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import java.io.*;							// Java ファイル読み書き用
 import java.io.IOException;
@@ -260,6 +261,15 @@ public class ChkVuls {
         return conf_data;
     }
 
+	public static boolean isDouble(String num) {
+	    try {
+	        Double.parseDouble(num);
+	        return true;
+       } catch (NumberFormatException e) {
+	        return false;
+	    }
+	}
+	
     // Apache HTTP Server
   public static void ChkAdv001(String[] conf_data) {
       // 宣言
@@ -421,10 +431,26 @@ public class ChkVuls {
       conf_data[0]="09";
       conf_data[1]="PostgreSQL";
 
+      double cvssvalue;
+      Elements cvssTmps;
+      Elements cveTmps;
+
       try{
-    		  document = Jsoup.connect("https://www.postgresql.org/support/security/").get();
-          Elements elements = document.select("a[href*=https://access.redhat.com/security/cve/]");
-          conf_data[2]=elements.get(0).text();
+    	  	document = Jsoup.connect("https://www.postgresql.org/support/security/").get();
+    	  	Elements elements = document.select("table[class=table table-striped] tbody tr");
+			for(Element elmTmp: elements) {
+				cveTmps = elmTmp.select("a[href*=https://access.redhat.com/security/cve/]");
+				cvssTmps = elmTmp.select("a[href*=https://nvd.nist.gov/vuln-metrics/cvss/v3-calculator]");
+
+				if (isDouble(cvssTmps.text())) {
+					cvssvalue = Double.parseDouble(cvssTmps.text());
+					if (cvssvalue >= 7 ) {
+						conf_data[2]=cveTmps.text();
+	  					break;
+					}
+				}
+	        }
+
       } catch (IOException e) {
           conf_data[5]="情報取得失敗";	// 2021/1/19 修正
       }
