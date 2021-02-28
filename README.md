@@ -9,7 +9,7 @@
 未 https://httpd.apache.org/security/vulnerabilities_24.html<BR>
 ◎ https://www.drupal.org/security<BR>
 未 https://wordpress.org/news/category/security/<BR>
-未 https://kb.isc.org/docs/aa-00913<BR>
+◎ https://kb.isc.org/docs/aa-00913<BR>
 ◎ https://tomcat.apache.org/download-80.cgi<BR>
 ◎ https://tomcat.apache.org/download-90.cgi<BR>
 未 https://www.oracle.com/security-alerts/<BR>
@@ -18,11 +18,11 @@
 未 https://www.postgresql.org/support/security/<BR>
 　※ CVSS >= 7 のみチェックしています。 [2021/2/12 更新]
 未 https://helpx.adobe.com/security.html<BR>
-　※ Adobe ColdFusion のみチェック <BR>
+　※ Adobe ColdFusion のみチェック、サイトの変更に対応 [2021/2/28]<BR>
 ◎ https://tools.cisco.com/security/center/publicationListing.x<BR>
 ◎ https://www.vmware.com/jp/security/advisories.html<BR>
 ◎ https://www.hitachi.co.jp/hirt/security/index.html<BR>
-未 https://www.openssl.org/news/vulnerabilities.html<BR>
+◎ https://www.openssl.org/news/vulnerabilities.html<BR>
 未 https://www.nlnetlabs.nl/projects/unbound/security-advisories/<BR>
 ◎ https://cwiki.apache.org/confluence/display/WW/Security+Bulletins<BR>
 未 https://security.paloaltonetworks.com/?severity=CRITICAL&severity=HIGH&sort=-date [2021/2/9 追加]<BR>
