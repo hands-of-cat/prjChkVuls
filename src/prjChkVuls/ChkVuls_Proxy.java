@@ -653,7 +653,13 @@ public class ChkVuls_Proxy {
 	      		  document = Jsoup.connect("https://helpx.adobe.com/security.html").proxy(proxy_url,proxy_port).get();
 	    	  	}
 	          Elements elements = document.select("a[href*=https://helpx.adobe.com/security/products/coldfusion/]");
-	          conf_data[2]=elements.get(0).select("b").get(0).text();
+
+	          	if (elements.isEmpty() ) {
+	                conf_data[5]="";
+	          	}else {
+	                conf_data[2]=elements.get(0).select("b").get(0).text();          		
+	          	}
+
 	      } catch (IOException e) {
 	          conf_data[5]="情報取得失敗";	// 2021/1/19 修正
 	      }
