@@ -1,10 +1,10 @@
 chkVuls.jar
 md5
-b0b9eaa5917ccb97c1f72519da89ed70  chkVuls.jar
+78d09d5bba09b8bff08496d283066447  chkVuls.jar
 sha256
-ebe925942a84c173651f51ba038fca7326ceeb37f94839e58b8bbd4badaff47c  chkVuls.jar
+b4946baa647d2bd2095f0515d17fe1833873e5b696cebc1cb2f7d23e35368a05  chkVuls.jar
 chkVuls_Proxy.jar
 md5
-bb53fb3d8f6c54c2b0f3cffb75128c91  chkVuls_Proxy.jar
+4dcfd43dc2931d29145b02902fa1c0a2  chkVuls_Proxy.jar
 sha256
-399a68c1f18f4f50586ea5ca60ad763e283fc6b5ae76aa64d2efcf45b6dfdfe0  chkVuls_Proxy.jar
+00c741035e595b3d1934fef356231823602f5e506e63333848e5f38ed0aac58d  chkVuls_Proxy.jar
