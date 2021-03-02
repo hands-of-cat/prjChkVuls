@@ -469,7 +469,7 @@ public class ChkVuls {
     		  document = Jsoup.connect("https://helpx.adobe.com/security.html").get();
           Elements elements = document.select("a[href*=https://helpx.adobe.com/security/products/coldfusion/]");
           	if (elements.isEmpty() ) {
-                conf_data[5]="";
+                conf_data[5]="-";
           	}else {
                 conf_data[2]=elements.get(0).select("b").get(0).text();          		
           	}
