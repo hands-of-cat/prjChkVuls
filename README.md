@@ -22,7 +22,8 @@
 ◎ https://tools.cisco.com/security/center/publicationListing.x<BR>
 ◎ https://www.vmware.com/jp/security/advisories.html<BR>
 ◎ https://www.hitachi.co.jp/hirt/security/index.html<BR>
-◎ https://www.openssl.org/news/vulnerabilities.html<BR>
+× https://www.openssl.org/news/vulnerabilities.html<BR>
+ ※25-Mar-2021 のアップデート、チェックできず<BR>
 未 https://www.nlnetlabs.nl/projects/unbound/security-advisories/<BR>
 ◎ https://cwiki.apache.org/confluence/display/WW/Security+Bulletins<BR>
 未 https://security.paloaltonetworks.com/?severity=CRITICAL&severity=HIGH&sort=-date [2021/2/9 追加]<BR>
