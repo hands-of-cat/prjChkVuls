@@ -7,7 +7,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import java.io.*;							// Java ãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿æ›¸ãç”¨
+import java.io.*;							// Java ƒtƒ@ƒCƒ‹“Ç‚İ‘‚«—p
 import java.io.IOException;
 import java.net.Authenticator;
 import java.net.MalformedURLException;
@@ -15,11 +15,11 @@ import java.net.PasswordAuthentication;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import com.google.gson.Gson;			// json è§£æç”¨
-import java.util.Date;					// å®Ÿè¡Œæ—¥ä»˜ç”¨
+import com.google.gson.Gson;			// json ‰ğÍ—p
+import java.util.Date;					// Às“ú•t—p
 import java.util.Locale;
 
-import javax.swing.*;					// ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸è¡¨ç¤ºç”¨
+import javax.swing.*;					// ƒƒbƒZ[ƒW•\¦—p
 
 /**
  * @author hands-of-cats
@@ -30,55 +30,55 @@ public class ChkVuls {
 	 * @throws IOException 
 	 */
 
-// ãƒã‚§ãƒƒã‚¯å†…å®¹ä¿å­˜ã®ãŸã‚ã®é…åˆ—
-	static int max_row=17;						// 2021/2/9 â˜…è¿½åŠ (ä¿®æ­£) 
-	static int max_col=6;						// 2021/1/19 ä¿®æ­£
+// ƒ`ƒFƒbƒN“à—e•Û‘¶‚Ì‚½‚ß‚Ì”z—ñ
+	static int max_row=17;						// 2021/2/9 š’Ç‰Á(C³) 
+	static int max_col=6;						// 2021/1/19 C³
 	static String data_file="lastcheckdata.csv";
 	static String data_path=".";
 
 	public static void main(String[] args) throws IOException {
 		
-		// æœ¬ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®å®Ÿè¡Œç¢ºèª
+		// –{ƒvƒƒOƒ‰ƒ€‚ÌÀsŠm”F
 		int retval = JOptionPane.showConfirmDialog
 		(
 		null,
-		"å®Ÿè¡Œã—ã¾ã™ã‹ï¼Ÿ",
-		"ç¢ºèª",
+		"Às‚µ‚Ü‚·‚©H",
+		"Šm”F",
 		JOptionPane.OK_CANCEL_OPTION
 		);
 
 //		// retval
 //		System.out.println(retval);	
 
-		// ã‚¢ãƒ—ãƒªã‚’ã“ã“ã§æ­¢ã‚ã‚‹ã€‚
+		// ƒAƒvƒŠ‚ğ‚±‚±‚Å~‚ß‚éB
 		if (retval == JOptionPane.OK_CANCEL_OPTION) {
-			System.out.println("ã‚¢ãƒ—ãƒªæ­¢ã‚ã‚‹");	
+			System.out.println("ƒAƒvƒŠ~‚ß‚é");	
 			System.exit(0);
 			}
 
 
-		// ã‚¢ãƒ—ãƒªã‚’ã“ã“ã§æ­¢ã‚ã‚‹ã€‚
+		// ƒAƒvƒŠ‚ğ‚±‚±‚Å~‚ß‚éB
 //		if (true) {System.exit(0);}
 		
-		// è„†å¼±æ€§æœ‰ç„¡
+		// Æã«—L–³
 		boolean blnChk = false;
 		
-		// å‡ºåŠ›ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
+		// o—ÍƒƒbƒZ[ƒW
 		String strMsg = "";
 
-		// ä»Šå›ã®ãƒã‚§ãƒƒã‚¯æ—¥ä»˜ã‚’è¨­å®š
+		// ¡‰ñ‚Ìƒ`ƒFƒbƒN“ú•t‚ğİ’è
 		Date now = new Date();
        DateFormat YYYYMMDD = new SimpleDateFormat("yyyy/MM/dd");
 		
-		// æ—¥ä»˜ã®å‡ºåŠ›ç¢ºèª
+		// “ú•t‚Ìo—ÍŠm”F
 		System.out.println(YYYYMMDD.format(now));	
 		//if (true) {System.exit(0);}
 		
-        // ãƒã‚§ãƒƒã‚¯å†…å®¹ä¿å­˜ã®ãŸã‚ã®é…åˆ—
+        // ƒ`ƒFƒbƒN“à—e•Û‘¶‚Ì‚½‚ß‚Ì”z—ñ
         String[][] conf_data = new String[max_row][max_col];
         String[][] conf_data_now = new String[max_row][max_col];
 
-        // é…åˆ—ã®åˆæœŸåŒ–
+        // ”z—ñ‚Ì‰Šú‰»
         for(int i=0; i< max_row; i++) {
             for (int j=0; j<max_col; j++) {
                 conf_data[i][j]="";
@@ -86,37 +86,38 @@ public class ChkVuls {
             }
         }
 
-       // ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­è¾¼
+       // ƒtƒ@ƒCƒ‹‚Ì“Ç
       conf_data = readFile();
       
-       // å€‹åˆ¥ã«æƒ…å ±ã‚’ç¢ºèª
+       // ŒÂ•Ê‚Éî•ñ‚ğŠm”F
        ChkAdv001(conf_data_now[0]);
        ChkAdv002(conf_data_now[1]);
        ChkAdv003(conf_data_now[2]);
        ChkAdv004(conf_data_now[3]);
        ChkAdv005(conf_data_now[4]);
-		System.out.println(" 5 å€‹ãƒã‚§ãƒƒã‚¯å®Œäº†");	
+		System.out.println(" 5 ŒÂƒ`ƒFƒbƒNŠ®—¹");	
 
 		ChkAdv006(conf_data_now[5]);
 		ChkAdv007(conf_data_now[6]);
        ChkAdv008(conf_data_now[7]);
        ChkAdv009(conf_data_now[8]);
+//		System.exit(0);
        ChkAdv010(conf_data_now[9]);
-       System.out.println("10 å€‹ãƒã‚§ãƒƒã‚¯å®Œäº†");	
+       System.out.println("10 ŒÂƒ`ƒFƒbƒNŠ®—¹");	
 
        ChkAdv011(conf_data_now[10]);		
 		ChkAdv012(conf_data_now[11]);
        ChkAdv013(conf_data_now[12]);
        ChkAdv014(conf_data_now[13]);
        ChkAdv015(conf_data_now[14]);
-		System.out.println("15 å€‹ãƒã‚§ãƒƒã‚¯å®Œäº†");	
+		System.out.println("15 ŒÂƒ`ƒFƒbƒNŠ®—¹");	
 
 		ChkAdv016(conf_data_now[15]);
-		ChkAdv017(conf_data_now[16]);		// 2021/2/9 â˜…è¿½åŠ (ä¿®æ­£)
-		System.out.println("å…¨ãƒã‚§ãƒƒã‚¯å®Œäº†");	
+		ChkAdv017(conf_data_now[16]);		// 2021/2/9 š’Ç‰Á(C³)
+		System.out.println("‘Sƒ`ƒFƒbƒNŠ®—¹");	
 
        for(int i=0; i< max_row; i++) {
-            // åˆå›å®Ÿè¡Œæ™‚ã®è¨­å®š
+            // ‰‰ñÀs‚Ìİ’è
     	   if ((conf_data[i][2] == null) || conf_data[i][2].equals("") ) {
     		   conf_data[i][4] = YYYYMMDD.format(now); 
     		   conf_data[i][3] = conf_data_now[i][2];
@@ -124,31 +125,31 @@ public class ChkVuls {
     		   conf_data[i][1] = conf_data_now[i][1];
     		   conf_data[i][0] = conf_data_now[i][0];
             }
-           // å–å¾—ã—ãŸå€¤ãŒ NULL ã®å ´åˆ
-           else if (conf_data_now[i][2] == null || conf_data_now[i][2].equals("") ) { // 2021/1/19 ä¿®æ­£
-               // ã“ã“ã‚’é€šã‚‹ã“ã¨ã¯ãªã„ã¯ãšã€‚â†’æƒ…å ±å–å¾—å¤±æ•—ã—ãŸã¨ãã«ã“ã“ã‚’é€šã‚‹
-        	   blnChk = true;															// 2021/1/19 è¿½åŠ 
-        	   strMsg += "â—" + conf_data[i][1] +":" + conf_data_now[i][5] +"\n";	// 2021/1/19 è¿½åŠ 
-           	conf_data[i][5] = conf_data_now[i][5];							// 2021/1/19 è¿½åŠ 
-//                	conf_data[i][4] = YYYYMMDD.format(now); 						// 2021/1/19 ã‚³ãƒ¡ãƒ³ãƒˆ
-//                	conf_data[i][3] = conf_data_now[i][3];							// 2021/1/19 ã‚³ãƒ¡ãƒ³ãƒˆ
-//                	conf_data[i][2] = conf_data_now[i][2];							// 2021/1/19 ã‚³ãƒ¡ãƒ³ãƒˆ
-//                	conf_data[i][1] = conf_data_now[i][1];							// 2021/1/19 ã‚³ãƒ¡ãƒ³ãƒˆ
-//                	conf_data[i][0] = conf_data_now[i][0];							// 2021/1/19 ã‚³ãƒ¡ãƒ³ãƒˆ
+           // æ“¾‚µ‚½’l‚ª NULL ‚Ìê‡
+           else if (conf_data_now[i][2] == null || conf_data_now[i][2].equals("") ) { // 2021/1/19 C³
+               // ‚±‚±‚ğ’Ê‚é‚±‚Æ‚Í‚È‚¢‚Í‚¸B¨î•ñæ“¾¸”s‚µ‚½‚Æ‚«‚É‚±‚±‚ğ’Ê‚é
+        	   blnChk = true;															// 2021/1/19 ’Ç‰Á
+        	   strMsg += "" + conf_data[i][1] +":" + conf_data_now[i][5] +"\n";	// 2021/1/19 ’Ç‰Á
+           	conf_data[i][5] = conf_data_now[i][5];							// 2021/1/19 ’Ç‰Á
+//                	conf_data[i][4] = YYYYMMDD.format(now); 						// 2021/1/19 ƒRƒƒ“ƒg
+//                	conf_data[i][3] = conf_data_now[i][3];							// 2021/1/19 ƒRƒƒ“ƒg
+//                	conf_data[i][2] = conf_data_now[i][2];							// 2021/1/19 ƒRƒƒ“ƒg
+//                	conf_data[i][1] = conf_data_now[i][1];							// 2021/1/19 ƒRƒƒ“ƒg
+//                	conf_data[i][0] = conf_data_now[i][0];							// 2021/1/19 ƒRƒƒ“ƒg
            }
-           // è£½å“ã«æ–°ã—ã„è„†å¼±æ€§ãŒè¦‹ã¤ã‹ã‚‰ãªã‹ã£ãŸå ´åˆ
+           // »•i‚ÉV‚µ‚¢Æã«‚ªŒ©‚Â‚©‚ç‚È‚©‚Á‚½ê‡
            else if (conf_data_now[i][2].equals(conf_data[i][2])) {
-//            		strMsg += "âˆ’" + conf_data[i][1] +":" + conf_data[i][2] + "\n";
+//            		strMsg += "?" + conf_data[i][1] +":" + conf_data[i][2] + "\n";
             		conf_data[i][3] = conf_data[i][2];
             		conf_data[i][2] = conf_data_now[i][2];
               	conf_data[i][1] = conf_data_now[i][1];
               	conf_data[i][0] = conf_data_now[i][0];            
            }
-           // è£½å“ã«æ–°ã—ã„è„†å¼±æ€§ãŒè¦‹ã¤ã‹ã£ãŸã¨ã
+           // »•i‚ÉV‚µ‚¢Æã«‚ªŒ©‚Â‚©‚Á‚½‚Æ‚«
            else if (!conf_data_now[i][2].equals(conf_data[i][2])) {
         	   blnChk = true;
-        	   strMsg += "â—" + conf_data[i][1] +":" + conf_data[i][2] + "->" + conf_data_now[i][2]+"\n";
-              conf_data[i][4] = YYYYMMDD.format(now);     // æ–°ã—ã„è„†å¼±æ€§ãŒè¦‹ã¤ã‹ã‚Œã°æœ€çµ‚å¤‰åŒ–æ—¥ã‚’æ›´æ–°
+        	   strMsg += "" + conf_data[i][1] +":" + conf_data[i][2] + "->" + conf_data_now[i][2]+"\n";
+              conf_data[i][4] = YYYYMMDD.format(now);     // V‚µ‚¢Æã«‚ªŒ©‚Â‚©‚ê‚ÎÅI•Ï‰»“ú‚ğXV
               conf_data[i][3] = conf_data[i][2];
               conf_data[i][2] = conf_data_now[i][2];
               conf_data[i][1] = conf_data_now[i][1];
@@ -156,7 +157,7 @@ public class ChkVuls {
             }
         }
 
-        // æ›¸è¾¼ãƒ‡ãƒ¼ã‚¿ã®æº–å‚™
+        // ‘ƒf[ƒ^‚Ì€”õ
         String strTmp;
         strTmp = "";
         for(int i = 0; i < max_row; i++) {
@@ -164,30 +165,30 @@ public class ChkVuls {
             for(int j = 1; j < max_col ; j++) {
                 strTmp += "," + conf_data[i][j];
             }
-            // æ”¹è¡Œã‚’è¿½åŠ 
+            // ‰üs‚ğ’Ç‰Á
           strTmp = strTmp + "\n";
         }
 
-        // ãƒ•ã‚¡ã‚¤ãƒ«ã®æ›¸è¾¼
+        // ƒtƒ@ƒCƒ‹‚Ì‘
         saveFile(strTmp);
 
-		// æ—¥ä»˜ã®å‡ºåŠ›ç¢ºèª
+		// “ú•t‚Ìo—ÍŠm”F
 		System.out.println(strMsg);	
 
-		// ãƒã‚§ãƒƒã‚¯å¯¾è±¡ãŒè¦‹ã¤ã‹ã£ãŸã¨ã
+		// ƒ`ƒFƒbƒN‘ÎÛ‚ªŒ©‚Â‚©‚Á‚½‚Æ‚«
 		if (blnChk) {
-			// ãƒã‚§ãƒƒã‚¯çµ‚äº†ã®ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã‚’è¡¨ç¤º
+			// ƒ`ƒFƒbƒNI—¹‚Ìƒ_ƒCƒAƒƒO‚ğ•\¦
 			JOptionPane.showMessageDialog(
-					null,strMsg, "ä¸€éƒ¨è£½å“ã§ç¢ºèªãŒå¿…è¦ã§ã™ã€‚",
+					null,strMsg, "ˆê•”»•i‚ÅŠm”F‚ª•K—v‚Å‚·B",
 					JOptionPane.INFORMATION_MESSAGE,
 					null
 			);					
 		}
-		// ãƒã‚§ãƒƒã‚¯å¯¾è±¡ãŒãªã‹ã£ãŸã¨ã
+		// ƒ`ƒFƒbƒN‘ÎÛ‚ª‚È‚©‚Á‚½‚Æ‚«
 		else {
-			// ãƒã‚§ãƒƒã‚¯çµ‚äº†ã®ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã‚’è¡¨ç¤º
+			// ƒ`ƒFƒbƒNI—¹‚Ìƒ_ƒCƒAƒƒO‚ğ•\¦
 			JOptionPane.showMessageDialog(
-					null, "ãƒã‚§ãƒƒã‚¯å¯¾è±¡ã¯ã‚ã‚Šã¾ã›ã‚“ã§ã—ãŸã€‚", "ãƒã‚§ãƒƒã‚¯çµ‚äº†",
+					null, "ƒ`ƒFƒbƒN‘ÎÛ‚Í‚ ‚è‚Ü‚¹‚ñ‚Å‚µ‚½B", "ƒ`ƒFƒbƒNI—¹",
 					JOptionPane.INFORMATION_MESSAGE,
 					null
 			);					
@@ -195,11 +196,11 @@ public class ChkVuls {
 	}
 
 
-    // ãƒ•ã‚¡ã‚¤ãƒ«ä¿å­˜
+    // ƒtƒ@ƒCƒ‹•Û‘¶
     private static void saveFile(String strTmp) {
         File file = new File(data_path, data_file);
 
-        // ãƒˆãƒ©ã‚¤&ã‚¨ãƒ©ãƒ¼
+        // ƒgƒ‰ƒC&ƒGƒ‰[
         try (FileWriter writer = new FileWriter(file)) {
             writer.write(strTmp);
         }
@@ -208,20 +209,20 @@ public class ChkVuls {
         }
     }
     
-    // ãƒ•ã‚¡ã‚¤ãƒ«èª­è¾¼
+    // ƒtƒ@ƒCƒ‹“Ç
     private static String[][] readFile() {
-        // ãƒ•ã‚¡ã‚¤ãƒ«ã®è¡Œæ•°ã‚’ã‚«ã‚¦ãƒ³ãƒˆ
+        // ƒtƒ@ƒCƒ‹‚Ìs”‚ğƒJƒEƒ“ƒg
         int line_index=-1;
 
-        // ãƒ•ã‚¡ã‚¤ãƒ«ã®æƒ…å ±ã‚’ä¿å­˜
+        // ƒtƒ@ƒCƒ‹‚Ìî•ñ‚ğ•Û‘¶
         String[][] conf_data = new String[max_row][max_col];
 
         File file = new File(data_path, data_file);
 
         try {
-            // ãƒ•ã‚¡ã‚¤ãƒ«ãŒã‚ã‚‹å ´åˆ
+            // ƒtƒ@ƒCƒ‹‚ª‚ ‚éê‡
             if (file.exists()) {
-                // BufferedReaderã‚¯ãƒ©ã‚¹ã®readLineãƒ¡ã‚½ãƒƒãƒ‰ã‚’ä½¿ã£ã¦1è¡Œãšã¤èª­ã¿è¾¼ã¿è¡¨ç¤ºã™ã‚‹
+                // BufferedReaderƒNƒ‰ƒX‚ÌreadLineƒƒ\ƒbƒh‚ğg‚Á‚Ä1s‚¸‚Â“Ç‚İ‚İ•\¦‚·‚é
                 FileReader fileReader = new FileReader(file);
 
                 BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -235,23 +236,23 @@ public class ChkVuls {
                 		break;
                 	}
 
-                	// èª­ã¿è¾¼ã‚“ã ãƒ•ã‚¡ã‚¤ãƒ«ã®å†…å®¹ã‚’åˆ†å‰²(æœ€å¤§ 6é …ç›®)				//2021/1/19 ä¿®æ­£
-	              String[] strCols = strLine.split(",", 6);		//2021/1/19 ä¿®æ­£
+                	// “Ç‚İ‚ñ‚¾ƒtƒ@ƒCƒ‹‚Ì“à—e‚ğ•ªŠ„(Å‘å 6€–Ú)				//2021/1/19 C³
+	              String[] strCols = strLine.split(",", 6);		//2021/1/19 C³
 
 
 //              	System.out.println("Split");
 
-                    // å€¤ã®ä¿å­˜
+                    // ’l‚Ì•Û‘¶
                   for(int i = 0; i < strCols.length ; i++) {
 //                  	System.out.println("Col:" + i);
                      conf_data[line_index][i]=strCols[i];
-                        // æœ€å¤§è¡Œæ•°ã‚’è¶…ãˆãŸå ´åˆã¯ãƒ«ãƒ¼ãƒ—ã‚’æŠœã‘ã‚‹
+                        // Å‘ås”‚ğ’´‚¦‚½ê‡‚Íƒ‹[ƒv‚ğ”²‚¯‚é
                      if(i > max_col) break;
                     }
-                  conf_data[line_index][5]="";		// 2021/1/19 ä¿®æ­£
+                  conf_data[line_index][5]="";		// 2021/1/19 C³
                 }
 
-                // æœ€å¾Œã«ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‰ã˜ã¦ãƒªã‚½ãƒ¼ã‚¹ã‚’é–‹æ”¾ã™ã‚‹
+                // ÅŒã‚Éƒtƒ@ƒCƒ‹‚ğ•Â‚¶‚ÄƒŠƒ\[ƒX‚ğŠJ•ú‚·‚é
                 bufferedReader.close();
             }
 
@@ -272,10 +273,10 @@ public class ChkVuls {
 	
     // Apache HTTP Server
   public static void ChkAdv001(String[] conf_data) {
-      // å®£è¨€
+      // éŒ¾
       Document document;
 
-      // Apache HTTPã€€å€‹åˆ¥éƒ¨åˆ†
+      // Apache HTTP@ŒÂ•Ê•”•ª
       conf_data[0]="01";
       conf_data[1]="Apache HTTP";
 
@@ -284,16 +285,16 @@ public class ChkVuls {
           Elements elements = document.select("h1[id*=2.4]");
           conf_data[2]=elements.get(0).id();
       } catch (IOException e) {
-          conf_data[5]="æƒ…å ±å–å¾—å¤±æ•—";	// 2021/1/19 ä¿®æ­£
+          conf_data[5]="î•ñæ“¾¸”s";	// 2021/1/19 C³
       }
   }
 
   // Drupal
   public static void ChkAdv002( String[] conf_data) {
-      // å®£è¨€
+      // éŒ¾
       Document document;
 
-      // Drupal å€‹åˆ¥éƒ¨åˆ†
+      // Drupal ŒÂ•Ê•”•ª
       conf_data[0]="02";
       conf_data[1]="Drupal";
 
@@ -303,16 +304,16 @@ public class ChkVuls {
           Elements elements = document.select("a[href*=/sa-core]");
           conf_data[2]=elements.get(0).attr("href");
       } catch (IOException e) {
-          conf_data[5]="æƒ…å ±å–å¾—å¤±æ•—";	// 2021/1/19 ä¿®æ­£
+          conf_data[5]="î•ñæ“¾¸”s";	// 2021/1/19 C³
       }
   }
 
   // WordPress
   public static void ChkAdv003( String[] conf_data) {
-      // å®£è¨€
+      // éŒ¾
       Document document;
 
-      // WordPressã€€å€‹åˆ¥éƒ¨åˆ†
+      // WordPress@ŒÂ•Ê•”•ª
       conf_data[0]="03";
       conf_data[1]="WordPress";
 
@@ -322,34 +323,45 @@ public class ChkVuls {
           conf_data[2]=elements.get(0).text();
 
       } catch (IOException e) {
-          conf_data[5]="æƒ…å ±å–å¾—å¤±æ•—";	// 2021/1/19 ä¿®æ­£
+          conf_data[5]="î•ñæ“¾¸”s";	// 2021/1/19 C³
       }
   }
 
   // ISC BIND
   public static void ChkAdv004( String[] conf_data) {
-      // å®£è¨€
+      // éŒ¾
       Document document;
 
-      // ISC BIND å€‹åˆ¥éƒ¨åˆ†
+      // ISC BIND ŒÂ•Ê•”•ª
       conf_data[0]="04";
       conf_data[1]="ISC BIND";
 
       try{
     		  document = Jsoup.connect("https://kb.isc.org/docs/aa-00913").get();
-          Elements elements = document.select("a[href*=http://cve.mitre.org/cgi-bin/cvename.cgi]");
-          conf_data[2]=elements.get(0).text();
+//          Elements elements = document.select("a[href*=http://cve.mitre.org/cgi-bin/cvename.cgi]");
+              Elements elements = document.select("script");
+  		 	String cvevalues[] = elements.get(5).html().split("\\&quot;",0);
+
+            conf_data[2]="";
+			for(String cvetmp: cvevalues) {
+		        if (cvetmp.contains("cve"))
+		        {
+		            conf_data[2]=cvetmp;
+		            break;
+		        }
+			}
+//              conf_data[2]=elements.get(0).text();
       } catch (IOException e) {
-          conf_data[5]="æƒ…å ±å–å¾—å¤±æ•—";	// 2021/1/19 ä¿®æ­£
+          conf_data[5]="î•ñæ“¾¸”s";	// 2021/1/19 C³
       }
   }
 
   // Tomcat 8
   public static void ChkAdv005( String[] conf_data) {
-      // å®£è¨€
+      // éŒ¾
       Document document;
 
-      // Tomcat 8 å€‹åˆ¥éƒ¨åˆ†
+      // Tomcat 8 ŒÂ•Ê•”•ª
       conf_data[0]="05";
       conf_data[1]="Tomcat 8";
 
@@ -361,16 +373,16 @@ public class ChkVuls {
 
           conf_data[2]=elements.get(0).text();
       } catch (IOException e) {
-          conf_data[5]="æƒ…å ±å–å¾—å¤±æ•—";	// 2021/1/19 ä¿®æ­£
+          conf_data[5]="î•ñæ“¾¸”s";	// 2021/1/19 C³
       }
   }
 
   // Tomcat 9
   public static void ChkAdv006( String[] conf_data) {
-      // å®£è¨€
+      // éŒ¾
       Document document;
 
-      // Tomcat 9 å€‹åˆ¥éƒ¨åˆ†
+      // Tomcat 9 ŒÂ•Ê•”•ª
       conf_data[0]="06";
       conf_data[1]="Tomcat 9";
 
@@ -382,16 +394,16 @@ public class ChkVuls {
 
           conf_data[2]=elements.get(0).text();
       } catch (IOException e) {
-          conf_data[5]="æƒ…å ±å–å¾—å¤±æ•—";	// 2021/1/19 ä¿®æ­£
+          conf_data[5]="î•ñæ“¾¸”s";	// 2021/1/19 C³
       }
   }
 
   // Oracle Security Alert
   public static void ChkAdv007( String[] conf_data) {
-      // å®£è¨€
+      // éŒ¾
       Document document;
 
-      // Oracle Security Alertã€€å€‹åˆ¥éƒ¨åˆ†
+      // Oracle Security Alert@ŒÂ•Ê•”•ª
       conf_data[0]="07";
       conf_data[1]="Oracle Security Alert";
 
@@ -400,16 +412,16 @@ public class ChkVuls {
           Elements elements = document.select("td a[href*=/security-alerts/alert]");
           conf_data[2]=elements.get(0).text();
       } catch (IOException e) {
-          conf_data[5]="æƒ…å ±å–å¾—å¤±æ•—";	// 2021/1/19 ä¿®æ­£
+          conf_data[5]="î•ñæ“¾¸”s";	// 2021/1/19 C³
       }
   }
 
   // PHP7
   public static void ChkAdv008( String[] conf_data) {
-      // å®£è¨€
+      // éŒ¾
       Document document;
 
-      // PHP7ã€€å€‹åˆ¥éƒ¨åˆ†
+      // PHP7@ŒÂ•Ê•”•ª
       conf_data[0]="08";
       conf_data[1]="PHP7";
 
@@ -418,16 +430,16 @@ public class ChkVuls {
           Elements elements = document.select("section[class*=version]");
           conf_data[2]=elements.get(0).id();
       } catch (IOException e) {
-          conf_data[5]="æƒ…å ±å–å¾—å¤±æ•—";	// 2021/1/19 ä¿®æ­£
+          conf_data[5]="î•ñæ“¾¸”s";	// 2021/1/19 C³
       }
   }
 
   // PostgreSQL
   public static void ChkAdv009( String[] conf_data) {
-      // å®£è¨€
+      // éŒ¾
       Document document;
 
-      // PostgreSQL å€‹åˆ¥éƒ¨åˆ†
+      // PostgreSQL ŒÂ•Ê•”•ª
       conf_data[0]="09";
       conf_data[1]="PostgreSQL";
 
@@ -439,29 +451,33 @@ public class ChkVuls {
     	  	document = Jsoup.connect("https://www.postgresql.org/support/security/").get();
     	  	Elements elements = document.select("table[class=table table-striped] tbody tr");
 			for(Element elmTmp: elements) {
-				cveTmps = elmTmp.select("a[href*=https://access.redhat.com/security/cve/]");
+//				cveTmps = elmTmp.select("a[href*=https://access.redhat.com/security/cve/]");
+				cveTmps = elmTmp.select("a[href*=support/security/]");
+				///support/security/CVE-2021-20229/
 				cvssTmps = elmTmp.select("a[href*=https://nvd.nist.gov/vuln-metrics/cvss/v3-calculator]");
 
 				if (isDouble(cvssTmps.text())) {
 					cvssvalue = Double.parseDouble(cvssTmps.text());
 					if (cvssvalue >= 7 ) {
-						conf_data[2]=cveTmps.text();
-	  					break;
+						conf_data[2]=cveTmps.get(0).text();
+//						System.out.println(cveTmps.get(0).text());	
+
+						break;
 					}
 				}
 	        }
 
       } catch (IOException e) {
-          conf_data[5]="æƒ…å ±å–å¾—å¤±æ•—";	// 2021/1/19 ä¿®æ­£
+          conf_data[5]="î•ñæ“¾¸”s";	// 2021/1/19 C³
       }
   }
 
   // Adobe ColdFusion
   public static void ChkAdv010( String[] conf_data) {
-      // å®£è¨€
+      // éŒ¾
       Document document;
 
-      // Adobe ColdFusionã€€å€‹åˆ¥éƒ¨åˆ†
+      // Adobe ColdFusion@ŒÂ•Ê•”•ª
       conf_data[0]="10";
       conf_data[1]="Adobe ColdFusion";
 
@@ -469,18 +485,18 @@ public class ChkVuls {
     		  document = Jsoup.connect("https://helpx.adobe.com/security.html").get();
           Elements elements = document.select("a[href*=https://helpx.adobe.com/security/products/coldfusion/]");
           	if (elements.isEmpty() ) {
-                conf_data[5]="-";
+                conf_data[5]="0000/00/00";
           	}else {
                 conf_data[2]=elements.get(0).select("b").get(0).text();          		
           	}
       } catch (IOException e) {
-          conf_data[5]="æƒ…å ±å–å¾—å¤±æ•—";	// 2021/1/19 ä¿®æ­£
+          conf_data[5]="î•ñæ“¾¸”s";	// 2021/1/19 C³
       }
   }
 
   // Cisco
   public static void ChkAdv011(String[] conf_data) {
-      // å®£è¨€
+      // éŒ¾
       String json;
 
       String strTmp;
@@ -490,21 +506,21 @@ public class ChkVuls {
       
       SimpleDateFormat YYYYMMDD = new SimpleDateFormat("yyyyMMdd");
       
-      // Gson ã®å®£è¨€
+      // Gson ‚ÌéŒ¾
       Gson gson = new Gson();
 
-      // Ciscoã€€å€‹åˆ¥éƒ¨åˆ†
+      // Cisco@ŒÂ•Ê•”•ª
       conf_data[0]="11";
       conf_data[1]="Cisco";
-      conf_data[2]="";	// 2021/1/19 ä¿®æ­£
+      conf_data[2]="";	// 2021/1/19 C³
 
       try{
     		  json = Jsoup.connect("https://tools.cisco.com/security/center/publicationService.x?criteria=exact&limit=20&offset=0&publicationTypeIDs=1,3&securityImpactRatings=critical,high&sort=-day_sir").ignoreContentType(true).execute().body();
 
-          // JSONæ–‡å­—åˆ—ã‚’Javaã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«å¤‰æ›ã™ã‚‹
+          // JSON•¶š—ñ‚ğJavaƒIƒuƒWƒFƒNƒg‚É•ÏŠ·‚·‚é
           cisco_json[] jsonArray = gson.fromJson(json, cisco_json[].class);
 
-          // åˆæœŸå€¤ã‚’è¨­å®š
+          // ‰Šú’l‚ğİ’è
           strTmp = jsonArray[0].firstPublished;
           date_new = dateFormat.parse(strTmp);
           
@@ -517,40 +533,40 @@ public class ChkVuls {
            conf_data[2]=YYYYMMDD.format(date_new);
           }
       } catch (IOException e) {
-          conf_data[5]="æƒ…å ±å–å¾—å¤±æ•—";	// 2021/1/19 ä¿®æ­£
+          conf_data[5]="î•ñæ“¾¸”s";	// 2021/1/19 C³
       } catch (ParseException e) {
-          conf_data[5]="æƒ…å ±å–å¾—å¤±æ•—";
+          conf_data[5]="î•ñæ“¾¸”s";
 		e.printStackTrace();
 	}
   }
 
-  // Cisco ã® Json å®šç¾©
+  // Cisco ‚Ì Json ’è‹`
   public static class cisco_json {
       public String identifier="";
-      public String title = "";				// è„†å¼±æ€§ã®ã‚¿ã‚¤ãƒˆãƒ«
-      public String version = "";				// 1.0ã¨ã‹
+      public String title = "";				// Æã«‚Ìƒ^ƒCƒgƒ‹
+      public String version = "";				// 1.0‚Æ‚©
       public String firstPublished = "";
       public String lastPublished = "";
-      public String workflowStatus = "";		// null ä»¥å¤–ã‚‚ã‚ã‚‹ã‹ï¼Ÿ
-      public String id = "";					// id ã¯ã‚ã¾ã‚Šæ„å‘³ãŒãªã•ãã†
-      public String name = "";					// Cisco Security Advisory ã§å›ºå®š
-      public String url = "";					// è©³ç´°æƒ…å ±ãŒä¹—ã£ã¦ã„ã‚‹
-      public String severity = "";		       // critical or high ã§çµã£ã¦ã„ã‚‹
-      public String status = "";				// New ãŒå¯¾è±¡
+      public String workflowStatus = "";		// null ˆÈŠO‚à‚ ‚é‚©H
+      public String id = "";					// id ‚Í‚ ‚Ü‚èˆÓ–¡‚ª‚È‚³‚»‚¤
+      public String name = "";					// Cisco Security Advisory ‚ÅŒÅ’è
+      public String url = "";					// Ú×î•ñ‚ªæ‚Á‚Ä‚¢‚é
+      public String severity = "";		       // critical or high ‚Åi‚Á‚Ä‚¢‚é
+      public String status = "";				// New ‚ª‘ÎÛ
       public String cwe = "";					// CWE-XXX,....
       public String cve = "";					// CVE-XXXX,....
-      public String ciscoBugId = "";			// Ciscoã®ãƒã‚°ID CXXX,CXXX
-      public String summary = "";				// ã‚µãƒãƒª
-      public String totalCount = "";			// è¡¨ç¤ºå›æ•°ãªã©
-      //		public String relatedResource = ""; // ã“ã‚ŒãŒã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãªã®ã§ã‚¨ãƒ©ãƒ¼ã‚’åã
+      public String ciscoBugId = "";			// Cisco‚ÌƒoƒOID CXXX,CXXX
+      public String summary = "";				// ƒTƒ}ƒŠ
+      public String totalCount = "";			// •\¦‰ñ”‚È‚Ç
+      //		public String relatedResource = ""; // ‚±‚ê‚ªƒIƒuƒWƒFƒNƒg‚È‚Ì‚ÅƒGƒ‰[‚ğ“f‚­
   }
 
   // VMware
   public static void ChkAdv012( String[] conf_data) {
-      // å®£è¨€
+      // éŒ¾
       Document document;
 
-      // VMwareã€€å€‹åˆ¥éƒ¨åˆ†
+      // VMware@ŒÂ•Ê•”•ª
       conf_data[0]="12";
       conf_data[1]="VMware";
 
@@ -559,16 +575,16 @@ public class ChkVuls {
           Elements elements = document.select("a[aria-label*=VMSA]");
           conf_data[2]=elements.get(0).text();
       } catch (IOException e) {
-          conf_data[5]="æƒ…å ±å–å¾—å¤±æ•—";	// 2021/1/19 ä¿®æ­£
+          conf_data[5]="î•ñæ“¾¸”s";	// 2021/1/19 C³
       }
   }
 
   // Hitachi
   public static void ChkAdv013( String[] conf_data) {
-      // å®£è¨€
+      // éŒ¾
       Document document;
 
-      // Hitachiã€€å€‹åˆ¥éƒ¨åˆ†
+      // Hitachi@ŒÂ•Ê•”•ª
       conf_data[0]="13";
       conf_data[1]="Hitachi";
 
@@ -577,16 +593,16 @@ public class ChkVuls {
           Elements elements = document.select("dt");
           conf_data[2]=elements.get(0).text();
       } catch (IOException e) {
-          conf_data[5]="æƒ…å ±å–å¾—å¤±æ•—";	// 2021/1/19 ä¿®æ­£
+          conf_data[5]="î•ñæ“¾¸”s";	// 2021/1/19 C³
       }
   }
 
   // OpenSSL
   public static void ChkAdv014( String[] conf_data) {
-      // å®£è¨€
+      // éŒ¾
       Document document;
 
-      // OpenSSLã€€å€‹åˆ¥éƒ¨åˆ†
+      // OpenSSL@ŒÂ•Ê•”•ª
       conf_data[0]="14";
       conf_data[1]="OpenSSL";
 
@@ -595,16 +611,16 @@ public class ChkVuls {
           Elements elements = document.select("a[href*=https://cve.mitre.org/cgi-bin/cvename.cgi]");
           conf_data[2]=elements.get(0).text();
       } catch (IOException e) {
-          conf_data[5]="æƒ…å ±å–å¾—å¤±æ•—";	// 2021/1/19 ä¿®æ­£
+          conf_data[5]="î•ñæ“¾¸”s";	// 2021/1/19 C³
       }
   }
 
   // unbound
   public static void ChkAdv015( String[] conf_data) {
-      // å®£è¨€
+      // éŒ¾
       Document document;
 
-      // unboundã€€å€‹åˆ¥éƒ¨åˆ†
+      // unbound@ŒÂ•Ê•”•ª
       conf_data[0]="15";
       conf_data[1]="unbound";
 
@@ -613,16 +629,16 @@ public class ChkVuls {
           Elements elements = document.select("tbody tr td[class=field-body]");
           conf_data[2]=elements.get(0).text();
       } catch (IOException e) {
-          conf_data[5]="æƒ…å ±å–å¾—å¤±æ•—";	// 2021/1/19 ä¿®æ­£
+          conf_data[5]="î•ñæ“¾¸”s";	// 2021/1/19 C³
       }
   }
 
   // Apache Struts
   public static void ChkAdv016( String[] conf_data) {
-      // å®£è¨€
+      // éŒ¾
       Document document;
 
-      // Apache Strutsã€€å€‹åˆ¥éƒ¨åˆ†
+      // Apache Struts@ŒÂ•Ê•”•ª
       conf_data[0]="16";
       conf_data[1]="Apache Struts";
 
@@ -631,16 +647,16 @@ public class ChkVuls {
           Elements elements = document.select("a[href*=/confluence/display/WW/]");
           conf_data[2]=elements.last().text();
       } catch (IOException e) {
-          conf_data[5]="æƒ…å ±å–å¾—å¤±æ•—";	// 2021/1/19 ä¿®æ­£
+          conf_data[5]="î•ñæ“¾¸”s";	// 2021/1/19 C³
       }
   }
 
-  // PaloAlto 2021/2/9 â˜…è¿½åŠ 
+  // PaloAlto 2021/2/9 š’Ç‰Á
   public static void ChkAdv017( String[] conf_data) {
-      // å®£è¨€
+      // éŒ¾
       Document document;
 
-      // PaloAltoã€€å€‹åˆ¥éƒ¨åˆ†
+      // PaloAlto@ŒÂ•Ê•”•ª
       conf_data[0]="17";
       conf_data[1]="PaloAlto";
 
@@ -651,10 +667,10 @@ public class ChkVuls {
 		 	String lastdata[] = cvssTmps.text().split(" ",0);
           conf_data[2]=lastdata[0];
       } catch (IOException e) {
-          conf_data[5]="æƒ…å ±å–å¾—å¤±æ•—";
+          conf_data[5]="î•ñæ“¾¸”s";
       }
   }
-  // 2021/2/9 â˜…è¿½åŠ 
+  // 2021/2/9 š’Ç‰Á
 
 
 }
