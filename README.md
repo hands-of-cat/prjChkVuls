@@ -9,15 +9,15 @@
 未 https://httpd.apache.org/security/vulnerabilities_24.html<BR>
 ◎ https://www.drupal.org/security<BR>
 未 https://wordpress.org/news/category/security/<BR>
-◎ https://kb.isc.org/docs/aa-00913<BR>
+◎ https://kb.isc.org/docs/aa-00913<BR> [2021/4/13 修正]
 ◎ https://tomcat.apache.org/download-80.cgi<BR>
 ◎ https://tomcat.apache.org/download-90.cgi<BR>
 未 https://www.oracle.com/security-alerts/<BR>
 　※ 定例外のみチェックしています。 <BR>
 ◎ https://www.php.net/ChangeLog-7.php<BR>
-未 https://www.postgresql.org/support/security/<BR>
+未 https://www.postgresql.org/support/security/ [2021/4/13 修正]<BR>
 　※ CVSS >= 7 のみチェックしています。 [2021/2/12 更新]
-未 https://helpx.adobe.com/security.html<BR>
+未 https://helpx.adobe.com/security.html [2021/4/13 修正]<BR>
 　※ Adobe ColdFusion のみチェック、サイトの変更に対応 [2021/2/28]<BR>
 ◎ https://tools.cisco.com/security/center/publicationListing.x<BR>
 ◎ https://www.vmware.com/jp/security/advisories.html<BR>
