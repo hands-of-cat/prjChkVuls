@@ -2,7 +2,6 @@
  ベンダが公開している Security Advisory 等の脆弱性情報について、新規公開を確認するためのプログラムです。<BR>
  公開済みの Security Advisory が更新された場合には、検知できないことがあります。<BR>
  Jsoup を利用して、特定の箇所を比較しているため、更新を検知できないことがあるかもしれません。<BR>
- 海外の製品をメインとしているので、１日１回実行すれば確認は十分です。<BR>
 
 # チェックしている Security Advisory は以下になります。
 未：実績なし、◎：実績あり、☓：バグがありチェックできていない <BR>
@@ -18,7 +17,7 @@
 未 https://www.postgresql.org/support/security/ [2021/4/13 修正]<BR>
 　※ CVSS >= 7 のみチェックしています。 [2021/2/12 更新]
 未 https://helpx.adobe.com/security.html [2021/4/13 修正]<BR>
-　※ Adobe ColdFusion のみチェック、サイトの変更に対応 [2021/2/28]<BR>
+　※ Adobe ColdFusion のみチェック、サイトの変更に対応/常にダイアログがでるのでいつか直す [2021/2/28]<BR>
 ◎ https://tools.cisco.com/security/center/publicationListing.x<BR>
 ◎ https://www.vmware.com/jp/security/advisories.html<BR>
 ◎ https://www.hitachi.co.jp/hirt/security/index.html<BR>
